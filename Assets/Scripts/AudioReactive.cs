@@ -16,6 +16,21 @@ public class AudioReactive : MonoBehaviour
     float lerpFraction; // Lerp point between 0~1
     float t;
 
+    //state 1, 2, 3, 4
+    //1 - exposition
+    //2 - rising action
+    //3 - climax
+    //4 - falling action/conclusion
+
+    //0:00-0:12 - Intro     (1)
+    //0:13-0:37 - part 1    (2)
+    //0:37-1:01 - chorus    (3)
+    //1:02-1:25 - int.      (2)
+    //1:26-1:50 - part 2    (2)
+    //1:51-2:15 - chorus    (3)
+    //2:16-2:42 - part 3    (2)
+    //2:43-3:21 - outro     (4)
+
     // Start is called before the first frame update
     void Start()
     {
