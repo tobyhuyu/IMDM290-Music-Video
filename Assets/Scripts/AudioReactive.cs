@@ -81,6 +81,41 @@ public class AudioReactive : MonoBehaviour
         time += Time.deltaTime * AudioSpectrum.audioAmp;
         Debug.Log(AudioSpectrum.audioAmp);
         // what to update over time?
+
+        if (Time.time < 12f)
+        {
+            //state 1
+
+        } else if (Time.time < 37f)
+        {
+            //state 2
+
+        } else if (Time.time < 61f)
+        {
+            //state 3
+
+        } else if (Time.time < 85f)
+        {
+            //state 2
+
+        } else if (Time.time < 110f)
+        {
+            //state 2
+
+        } else if (Time.time < 135f)
+        {
+            //state 3
+
+        } else if (Time.time < 162f)
+        {
+            //state 2
+
+        } else if (Time.time < 201f)
+        {
+            //state 4
+
+        }
+
         for (int i =0; i < numSphere; i++){
             // Lerp : Linearly interpolates between two points.
             // https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Vector3.Lerp.html
