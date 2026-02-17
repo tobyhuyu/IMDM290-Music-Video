@@ -17,10 +17,10 @@ public class AudioReactive : MonoBehaviour
     float t;
 
     //state 1, 2, 3, 4
-    //1 - exposition
-    //2 - rising action
-    //3 - climax
-    //4 - falling action/conclusion
+    //1 - exposition                    //toby
+    //2 - rising action                 //Michelle
+    //3 - climax                        //toby
+    //4 - falling action/conclusion     //michelle
 
     //0:00-0:12 - Intro     (1)
     //0:13-0:37 - part 1    (2)
@@ -84,35 +84,35 @@ public class AudioReactive : MonoBehaviour
 
         if (Time.time < 12f)
         {
-            //state 1
+            State1();
 
         } else if (Time.time < 37f)
         {
-            //state 2
+            State2();
 
         } else if (Time.time < 61f)
         {
-            //state 3
+            State3();
 
         } else if (Time.time < 85f)
         {
-            //state 2
+            State2();
 
         } else if (Time.time < 110f)
         {
-            //state 2
+            State2();
 
         } else if (Time.time < 135f)
         {
-            //state 3
+            State3();
 
         } else if (Time.time < 162f)
         {
-            //state 2
+            State2();
 
         } else if (Time.time < 201f)
         {
-            //state 4
+            State4();
 
         }
 
@@ -139,5 +139,24 @@ public class AudioReactive : MonoBehaviour
         //     Color color = Color.HSVToRGB(Mathf.Abs(hue * Mathf.Cos(time)), Mathf.Cos(AudioSpectrum.audioAmp / 10f), 2f + Mathf.Cos(time)); // Full saturation and brightness
         //     sphereRenderer.material.color = color;
         // }
+    }
+
+
+    private void State1()
+    {
+        
+    }
+
+    private void State2()
+    {
+        
+    }
+    private void State3()
+    {
+        
+    }
+    private void State4()
+    {
+        
     }
 }
