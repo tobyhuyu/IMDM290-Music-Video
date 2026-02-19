@@ -15,6 +15,8 @@ public class AudioReactive : MonoBehaviour
     Vector3[] startPosition, endPosition;
     float lerpFraction; // Lerp point between 0~1
     float t;
+    float hue = .18f;
+
 
     //state 1, 2, 3, 4
     //1 - exposition                    //toby
@@ -51,8 +53,6 @@ public class AudioReactive : MonoBehaviour
         }
         // Let there be spheres..
         for (int i =0; i < numSphere; i++){
-            // Draw primitive elements:
-            // https://docs.unity3d.com/6000.0/Documentation/ScriptReference/GameObject.CreatePrimitive.html
             spheres[i] = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 
             // Position
@@ -79,9 +79,8 @@ public class AudioReactive : MonoBehaviour
         // but what if time flows according to the music's amplitude?
         //time += Time.deltaTime * AudioSpectrum.audioAmp;
         time += Time.deltaTime * AudioSpectrum.audioAmp;
-        Debug.Log(AudioSpectrum.audioAmp);
-        // what to update over time?
-
+        //Debug.Log(AudioSpectrum.audioAmp);
+        //Debug.Log(Time.time);
         if (Time.time < 12f)
         {
             State1();
@@ -93,10 +92,6 @@ public class AudioReactive : MonoBehaviour
         } else if (Time.time < 61f)
         {
             State3();
-
-        } else if (Time.time < 85f)
-        {
-            State2();
 
         } else if (Time.time < 110f)
         {
@@ -115,8 +110,6 @@ public class AudioReactive : MonoBehaviour
             State4();
 
         }
-
-        //lowkey you can just steal this
 
         // for (int i =0; i < numSphere; i++){
         //     // Lerp : Linearly interpolates between two points.
@@ -144,20 +137,41 @@ public class AudioReactive : MonoBehaviour
 
     private void State1()
     {
-        //color goal: yellow (hue = 0.17f)
+         //exposition
+        for (int i =0; i < numSphere; i++){
+            // lerpFraction variable defines the point between startPosition and endPosition (0~1)
+            lerpFraction = Mathf.Sin(time) * 0.5f + 0.5f;
+
+
+            // Lerp logic. Update position      
+            t = i* 2 * Mathf.PI / numSphere;
+            spheres[i].transform.position = Vector3.Lerp(startPosition[i], endPosition[i], lerpFraction);
+            float scale = 1f + AudioSpectrum.audioAmp;
+            spheres[i].transform.localScale = new Vector3(scale, 1f, 1f);
+            spheres[i].transform.Rotate(AudioSpectrum.audioAmp, 1f, 1f);
+           
+            // Color Update over time
+            Renderer sphereRenderer = spheres[i].GetComponent<Renderer>();
+
+            //1 -> 2
+            if (Time.time > 10f && hue > .05f)
+            {
+                hue -= .02f/720;
+                //Debug.Log("hue: " + hue);
+            }
+            float value = (float)i / numSphere; // Hue cycles through 0 to 1
+            Color color = Color.HSVToRGB(hue , Mathf.Cos(AudioSpectrum.audioAmp / 10f), 2f + Mathf.Abs(value * Mathf.Cos(time))); // Full saturation and brightness
+            sphereRenderer.material.color = color;
+        }
+
     }
 
     private void State2()
     {
-        //color goal: orange (hue = 0.11f)
-        for (int i =0; i < numSphere; i++){
-             // Lerp : Linearly interpolates between two points.
-             // https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Vector3.Lerp.html
-             // Vector3.Lerp(startPosition, endPosition, lerpFraction)
-            
-             // lerpFraction variable defines the point between startPosition and endPosition (0~1)
-             lerpFraction = Mathf.Sin(time) * 0.5f + 0.5f;
+        //rising action
+        for (int i =0; i < numSphere; i++){   
 
+            lerpFraction = Mathf.Sin(time) * 0.5f + 0.5f;
              // Lerp logic. Update position       
              t = i* 2 * Mathf.PI / numSphere;
              spheres[i].transform.position = Vector3.Lerp(startPosition[i], endPosition[i], lerpFraction);
@@ -168,22 +182,57 @@ public class AudioReactive : MonoBehaviour
              // Color Update over time
              Renderer sphereRenderer = spheres[i].GetComponent<Renderer>();
              float value = (float)i / numSphere; // Hue cycles through 0 to 1
-             Color color = Color.HSVToRGB(0.11f, Mathf.Cos(AudioSpectrum.audioAmp / 10f), 2f + Mathf.Abs(value * Mathf.Cos(time))); // Full saturation and brightness
+
+            //2 -> 3
+             if ((Time.time > 35f && Time.time < 37f && hue > 0f) ||
+                (Time.time > 108f && Time.time < 110f && hue > 0f))
+             {
+                hue -= .01f/720;
+             }
+
+            //2 -> 4
+             if (Time.time > 160f && hue < .66f)
+             {
+                hue += .04f/720;
+             }
+             Color color = Color.HSVToRGB(hue, Mathf.Cos(AudioSpectrum.audioAmp / 10f), 2f + Mathf.Abs(value * Mathf.Cos(time))); // Full saturation and brightness
              sphereRenderer.material.color = color;
          }
     }
     private void State3()
     {
-        //color goal: red (hue = 0f)
+        //climax
+         for (int i =0; i < numSphere; i++){
+            // lerpFraction variable defines the point between startPosition and endPosition (0~1)
+            lerpFraction = Mathf.Sin(time) * 0.5f + 0.5f;
+
+
+            // Lerp logic. Update position      
+            t = i* 2 * Mathf.PI / numSphere;
+            spheres[i].transform.position = Vector3.Lerp(startPosition[i], endPosition[i], lerpFraction);
+            float scale = 1f + AudioSpectrum.audioAmp;
+            spheres[i].transform.localScale = new Vector3(scale, 1f, 1f);
+            spheres[i].transform.Rotate(AudioSpectrum.audioAmp, 1f, 1f);
+           
+            // Color Update over time
+            Renderer sphereRenderer = spheres[i].GetComponent<Renderer>();
+
+            //3 -> 2
+            if ((Time.time > 59f && Time.time < 61f && hue < .05f) ||
+                (Time.time > 133f && Time.time < 135f && hue < .05f))
+             {
+                hue += .01f/720;
+             }
+            float value = (float)i / numSphere; // Hue cycles through 0 to 1
+            Color color = Color.HSVToRGB(hue , Mathf.Cos(AudioSpectrum.audioAmp / 10f),  2f + Mathf.Abs(value * Mathf.Cos(time))); // Full saturation and brightness
+            sphereRenderer.material.color = color;
+        }
+
     }
     private void State4()
     {
-        //color goal: blue (hue = 0.66f)
+        //resolution
         for (int i =0; i < numSphere; i++){
-             // Lerp : Linearly interpolates between two points.
-             // https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Vector3.Lerp.html
-             // Vector3.Lerp(startPosition, endPosition, lerpFraction)
-            
              // lerpFraction variable defines the point between startPosition and endPosition (0~1)
              lerpFraction = Mathf.Sin(time) * 0.5f + 0.5f;
 
