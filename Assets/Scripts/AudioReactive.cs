@@ -49,7 +49,10 @@ public class AudioReactive : MonoBehaviour
 
             r = 3f; // radius of the circle
             // Circular end position
-            endPosition[i] = new Vector3(r * Mathf.Sin(i * 2 * Mathf.PI / numSphere), r * Mathf.Cos(i * 2 * Mathf.PI / numSphere));
+            float sin = Mathf.Sin(i * 2 * Mathf.PI/numSphere);
+            float cos = Mathf.Cos(i * 2 * Mathf.PI/numSphere);
+            float tan = Mathf.Tan(i * 2 * Mathf.PI/numSphere);
+            endPosition[i] = new Vector3(r * sin * sin * sin * tan * 1.25f, r * cos * cos * tan * 2f, 1.5f);
         }
         // Let there be spheres..
         for (int i =0; i < numSphere; i++){
