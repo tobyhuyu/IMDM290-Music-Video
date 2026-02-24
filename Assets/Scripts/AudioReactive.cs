@@ -85,31 +85,31 @@ public class AudioReactive : MonoBehaviour
         time += Time.deltaTime * AudioSpectrum.audioAmp;
         //Debug.Log(AudioSpectrum.audioAmp);
         //Debug.Log(Time.time);
-        if (Time.time < 12f)
+        if (Time.time < 18f)
         {
             State1();
 
-        } else if (Time.time < 37f)
+        } else if (Time.time < 38f)
         {
             State2();
 
-        } else if (Time.time < 61f)
+        } else if (Time.time < 68f)
         {
             State3();
 
-        } else if (Time.time < 110f)
+        } else if (Time.time < 124f)
         {
             State2();
 
-        } else if (Time.time < 135f)
+        } else if (Time.time < 136f)
         {
             State3();
 
-        } else if (Time.time < 162f)
+        } else if (Time.time < 163f)
         {
             State2();
 
-        } else if (Time.time < 201f)
+        } else if (Time.time < 202f)
         {
             State4();
 
